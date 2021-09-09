@@ -5224,8 +5224,7 @@ public OnPlayerCommandReceived(playerid,cmdtext[])
 
 public OnPlayerCommandPerformed(playerid,cmdtext[], success)
 {
-	printf("%s: %s", playerData[playerid][account_name], cmdtext);
-	return success;
+        return 1;
 }
 
 public OnRconLoginAttempt(ip[], password[], success)
@@ -8210,30 +8209,7 @@ CMD:respawn(playerid, params[])
 
 CMD:gotoin(playerid, params[])
 {
-	if(playerData[playerid][account_helper] < 2 && playerData[playerid][account_admin] < 1 && !IsPlayerAdmin(playerid)) {
-		SendClientMessage(playerid, COLOR_SERVER, "Error: You are not authorized to use this command.");
-	} else {
-		playerData[playerid][enteredBiz] = 0;
-		playerData[playerid][enteredHouse] = 0;
-
-		SetPlayerPos(playerid, 1412.639892,-1.787510,1000.924377);
-		SetPlayerInterior(playerid, 1);
-
-		new temp[128];
-		if (!IsPlayerAdmin(playerid)) {
-			if (playerData[playerid][account_admin] > 0) {
-				format(temp, sizeof(temp), "* Admin %s teleported to gotoin.", playerData[playerid][account_name]);
-				SendClientMessageToAdmins(1, COLOR_ADMIN_WRN, temp);
-			} else if (playerData[playerid][account_helper] > 0) {
-				format(temp, sizeof(temp), "* Helper %s teleported to gotoin.", playerData[playerid][account_name]);
-				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++) {
-					if (playerData[i][logged] == 1 && playerData[i][account_helper] >=1) {
-						SendClientMessage(i,COLOR_ADMIN_WRN, temp);
-					}
-				}
-			}
-		}
-	}
+	SendClientMessage(playerid, COLOR_SYNTAX, "Syntax: goto <player>");
 	return 1;
 }
 
